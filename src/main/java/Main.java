@@ -8,6 +8,7 @@ import de.uni_mannheim.informatik.dws.melt.matching_eval.ExecutionResultSet;
 import de.uni_mannheim.informatik.dws.melt.matching_eval.Executor;
 import de.uni_mannheim.informatik.dws.melt.matching_eval.evaluator.EvaluatorCSV;
 import eu.sealsproject.platform.res.domain.omt.IOntologyMatchingToolBridge;
+import de.uni_mannheim.informatik.dws.melt.matching_jena_matchers.external.matcher.SimpleStringMatcher;
 
 import java.net.URI;
 import java.io.File;
@@ -46,6 +47,9 @@ public class Main {
 	//Web matcher
 	URI matcherServiceUri = new URI("http://ec2-18-207-252-203.compute-1.amazonaws.com/match/runmatcher_web_file");
         MatcherHTTPCall matcherURI = new MatcherHTTPCall(matcherServiceUri, true);
+	    
+	//Baseline matcher
+        SimpleStringMatcher Baseline = new SimpleStringMatcher();
 
 	//adding all matchers to a map (key: matcher name, value: matcher instance)
         Map<String, IOntologyMatchingToolBridge> matchers = new HashMap<>();
@@ -60,6 +64,7 @@ public class Main {
         matchers.put("AML", sealsMatcher2);
         matchers.put("KGMatcher", sealsMatcher3);	
 	matchers.put("ONTmap", matcherURI);
+	matchers.put("Baseline", Baseline);
 
         
         //running the matcher on any task
